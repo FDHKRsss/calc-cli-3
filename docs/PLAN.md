@@ -17,14 +17,14 @@ Ship a `calc` entry point that opens the window (`python -m calc` or `calc`), a 
 The `evaluate(expression: str) -> str` function. Shunting-yard algorithm: tokenize → RPN → evaluate. Returns result string or `"Error"`. Never raises.
 
 - [x] M1 -- stub: `evaluate()` returns canned results based on trivial input matching.
-- [x] M1 -- real: Full shunting-yard implementation with tokenizer, precedence handling, RPN evaluation, all error cases. ✅ 259 tests green.
+- [x] M1 -- real: Full shunting-yard implementation with tokenizer, precedence handling, RPN evaluation, all error cases.
 
 ### M2: Controller module — headless state machine (`calc/controller.py`)
 
 `CalculatorController` class with `press(key)` method. Manages `expression`, `display`, `result_shown` flag. Delegates `=` to engine.
 
 - [x] M2 -- stub: `press()` echoes key to display, `=` shows `"STUB"`, clear/backspace work trivially.
-- [ ] M2 -- real: Full state machine with all behaviors (digit append, operator replace, decimal guard, result continuation, error recovery).
+- [x] M2 -- real: Full state machine with all behaviors (digit append, operator replace, decimal guard, result continuation, error recovery). ✅ 89 controller tests green.
 
 ### M3: View module — Tkinter GUI (`calc/view.py`)
 
@@ -44,9 +44,9 @@ The `evaluate(expression: str) -> str` function. Shunting-yard algorithm: tokeni
 
 pytest suite covering engine and controller. No test requires a live display.
 
-- [x] M5 -- stub: One trivial import test per module (engine, controller). (Both done: `test_engine_importable` in `tests/test_engine.py`, `test_controller_importable` in `tests/test_controller.py`.)
-- [~] M5 -- real (engine part): Engine tests are already comprehensive (111+ tests: precedence, parentheses, decimals, division by zero, malformed input, formatting, edge cases) — effectively done as part of M1-real. The remaining M5-real work is controller tests for M2-real behaviors.
-- [ ] M5 -- real (controller part): Comprehensive controller tests — digit building, operator sequences, clear/backspace, equals with valid/invalid expressions, error recovery, decimal guard, result continuation.
+- [x] M5 -- stub: One trivial import test per module (engine, controller).
+- [x] M5 -- real (engine part): 111 engine tests — precedence, parentheses, decimals, division by zero, malformed input, formatting, edge cases.
+- [x] M5 -- real (controller part): 89 controller tests — digit building, operator sequences, clear/backspace, equals with valid/invalid expressions, error recovery, decimal guard, result continuation. Plus 107 view/package-wiring tests. Total: 307 tests green.
 
 ---
 
@@ -54,7 +54,9 @@ pytest suite covering engine and controller. No test requires a live display.
 
 **Pass 1 (STUBS)**: M1-stub → M2-stub → M3-stub → M4-stub → M5-stub. End result: app launches, window appears with full button layout, buttons echo to display, `=` shows "STUB". Tests pass trivially. ✅ **COMPLETE — 166 tests green.**
 
-**Pass 2 (REAL)**: M1-real → M2-real → M3-real → M4-real → M5-real (controller part). End result: fully functional calculator with correct arithmetic.
+**Pass 2 (REAL)**: M1-real → M2-real → M3-real → M4-real. End result: fully functional calculator with correct arithmetic.
+
+**Current**: M1-real ✅, M2-real ✅, M5-real ✅ (307 tests green). Next: M3-real (view polish).
 
 ## Human notes
 

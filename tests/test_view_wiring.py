@@ -102,8 +102,8 @@ class TestViewWiring:
         assert ctrl.display == "4\u00d7"
         view._display_var.set.assert_called_once_with("4\u00d7")
 
-    def test_equals_press_shows_stub(self):
-        """Pressing '=' via _on_press updates display to 'STUB'."""
+    def test_equals_press_evaluates_expression(self):
+        """Pressing '=' via _on_press delegates to engine and shows result."""
         ctrl = CalculatorController()
         view = _make_testable_view(ctrl)
 
@@ -112,8 +112,8 @@ class TestViewWiring:
         view._on_press("2")
         view._display_var.set.reset_mock()
         view._on_press("=")
-        assert ctrl.display == "STUB"
-        view._display_var.set.assert_called_once_with("STUB")
+        assert ctrl.display == "3"
+        view._display_var.set.assert_called_once_with("3")
 
     def test_clear_press_resets_everything(self):
         """Pressing 'C' via _on_press clears expression and display."""
@@ -229,4 +229,4 @@ def test_refresh_after_multiple_operations():
 
     ctrl.press("=")
     view.refresh()
-    assert view._display_var.set.call_args_list[-1] == (("STUB",),)
+    assert view._display_var.set.call_args_list[-1] == (("10",),)
