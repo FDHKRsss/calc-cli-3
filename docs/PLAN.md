@@ -33,12 +33,12 @@ The `evaluate(expression: str) -> str` function. Shunting-yard algorithm: tokeni
 - [ ] M3 -- stub: Full button layout and keyboard bindings, wired to (stub) controller. Display updates work.
 - [ ] M3 -- real: Polish — ensure display font/size matches Windows Calculator style, window title, focus handling so keyboard works immediately.
 
-### M4: Package wiring — entry points (`calc/__main__.py`, `pyproject.toml`)
+### M4: Package wiring — entry points, pyproject.toml, README
 
-`python -m calc` and `calc` command both launch the app.
+`python -m calc` and `calc` command both launch the app. README describes how to launch and what the window looks like.
 
-- [ ] M4 -- stub: `__main__.py` imports and launches the view. `pyproject.toml` with `[project.scripts]` entry. App runs end-to-end (with stubs).
-- [ ] M4 -- real: Verify both entry points work. Finalize `pyproject.toml` metadata.
+- [ ] M4 -- stub: `__main__.py` imports and launches the view. `pyproject.toml` with `[project.scripts]` entry. App runs end-to-end (with stubs). README exists with launch instructions and window description.
+- [ ] M4 -- real: Verify both entry points work. Finalize `pyproject.toml` metadata. Polish README to match the delivered window appearance.
 
 ### M5: Test suite (`tests/`)
 
