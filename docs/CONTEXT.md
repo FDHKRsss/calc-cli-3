@@ -7,6 +7,7 @@ Architecture (important): put ALL arithmetic in a pure, GUI-free `engine` module
 Ship a `calc` entry point that opens the window (`python -m calc` or `calc`), a pytest suite covering the engine and controller (precedence, parentheses, decimals, division by zero, clear/backspace, malformed input) — no test may require a live display — and a short README with how to launch it and what the window looks like.
 
 **Established (do not regress):**
-- `calc/engine.py`: `evaluate(expression: str) -> str` — ASCII operators only, never raises, returns `"Error"` for any problem.
-- Tests: `tests/test_engine.py` (engine), `tests/test_controller.py` (controller). No test may import `tkinter` or create a live display.
+- `calc/engine.py` (M1-stub): `evaluate(expression: str) -> str` — ASCII operators only, never raises, returns `"Error"` for any problem. Currently canned results.
+- `calc/controller.py` (M2-stub): `CalculatorController` with `expression`/`display` read-only str and `press(key)`. Echo mode: keys appear in display (`*`→`×`, `/`→`÷`); `=` → `"STUB"`; `C` clears both; `backspace` removes last char. ASCII internally, Unicode for display.
+- Tests: `tests/test_engine.py` (29 tests), `tests/test_controller.py` (41 tests). No test may import `tkinter` or create a live display.
 - Full API contracts are in `docs/ARCHITECTURE.md`.

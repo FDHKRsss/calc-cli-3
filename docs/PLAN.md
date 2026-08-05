@@ -23,7 +23,7 @@ The `evaluate(expression: str) -> str` function. Shunting-yard algorithm: tokeni
 
 `CalculatorController` class with `press(key)` method. Manages `expression`, `display`, `result_shown` flag. Delegates `=` to engine.
 
-- [ ] M2 -- stub: `press()` echoes key to display, `=` shows `"STUB"`, clear/backspace work trivially.
+- [x] M2 -- stub: `press()` echoes key to display, `=` shows `"STUB"`, clear/backspace work trivially.
 - [ ] M2 -- real: Full state machine with all behaviors (digit append, operator replace, decimal guard, result continuation, error recovery).
 
 ### M3: View module — Tkinter GUI (`calc/view.py`)
@@ -44,7 +44,7 @@ The `evaluate(expression: str) -> str` function. Shunting-yard algorithm: tokeni
 
 pytest suite covering engine and controller. No test requires a live display.
 
-- [ ] M5 -- stub: One trivial import test per module (engine, controller). (Note: engine import test already exists in `tests/test_engine.py`, written alongside M1-stub. Remaining: controller import test — blocked until M2-stub creates `calc/controller.py`.)
+- [x] M5 -- stub: One trivial import test per module (engine, controller). (Both done: `test_engine_importable` in `tests/test_engine.py`, `test_controller_importable` in `tests/test_controller.py`.)
 - [ ] M5 -- real: Comprehensive tests — engine: precedence, parentheses, decimals, division by zero, malformed input (mismatched parens, empty, trailing operator, multiple decimals). controller: digit building, operator sequences, clear/backspace, equals with valid/invalid expressions, error recovery, decimal guard, result continuation.
 
 ---

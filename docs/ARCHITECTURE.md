@@ -187,9 +187,9 @@ User input (mouse click or keypress)
 | Module | Stub | Real |
 |--------|------|------|
 | `calc/engine.py` | ✅ `evaluate()` with canned results (`"1+1"` → `"2"`, `"2*3"` → `"6"`, `"1/0"` → `"Error"`, else `"STUB"`). Never raises. | — |
-| `calc/controller.py` | not started | — |
+| `calc/controller.py` | ✅ `CalculatorController` with echo-mode `press()`: digits/operators/decimal/parens echo to display (`*`→`×`, `/`→`÷`); `=` shows `"STUB"`; `C` clears both; `backspace` removes last char. ASCII internally, Unicode for display. Properties `expression`/`display` are read-only. | — |
 | `calc/view.py` | not started | — |
 | `calc/__main__.py` | not started | — |
 | `pyproject.toml` | not started | — |
 | `tests/test_engine.py` | ✅ 29 tests (import, canned results, fallback, return type, never-raises). All green. | — |
-| `tests/test_controller.py` | blocked (needs `calc/controller.py`) | — |
+| `tests/test_controller.py` | ✅ 41 tests (import, initial state, read-only properties, digit echo, operator Unicode mapping, expression building, equals, clear, backspace, post-equals typing, no-tkinter guard). All green. | — |
