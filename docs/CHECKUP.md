@@ -10,5 +10,6 @@ fix. The doctor APPENDS a new row whenever it solves a new blocker, so the next 
 | project won't import | `python -c "import <package>"` from the repo root | fix the environment (path/deps); if the code itself is broken, report it -- the coder fixes code |
 | port left occupied by a prior run | check the project's own port is free | stop only THIS project's leftover process/container; bind an ephemeral port for tests |
 | stale virtualenv / wrong interpreter | the interpreter runs and imports the project | recreate/repair the project venv (no system Python changes) |
+| project package not installed (entry point command not on PATH) | `pip show <package-name>` fails with "Package(s) not found" | `pip install -e .` (editable install in the project root) |
 
 _Report-only (do not fix): missing API keys, git branch state._

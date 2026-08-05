@@ -200,12 +200,14 @@ User input (mouse click or keypress)
 
 **Pass 1 (STUBS) — COMPLETE. 166 tests green.** ✅
 
+**Pass 2 (REAL) — in progress. 259 tests green.**
+
 | Module | Stub | Real |
 |--------|------|------|
-| `calc/engine.py` | ✅ `evaluate()` with canned results (`"1+1"` → `"2"`, `"2*3"` → `"6"`, `"1/0"` → `"Error"`, else `"STUB"`). Never raises. | — |
+| `calc/engine.py` | ✅ `evaluate()` with canned results (`"1+1"` → `"2"`, `"2*3"` → `"6"`, `"1/0"` → `"Error"`, else `"STUB"`). Never raises. | ✅ Full shunting-yard pipeline: `_tokenize()` → `_shunting_yard()` → `_eval_rpn()` → `_format_result()`. Correct precedence (`*/`=2, `+-`=1, left-assoc), parentheses, decimals (including `.5` leading-dot), whitespace tolerance. `_format_result()` guards against empty-string edge case. Division by zero / malformed / empty / non-str input → `"Error"`. Never raises. **111 engine tests green.** |
 | `calc/controller.py` | ✅ `CalculatorController` with echo-mode `press()`: digits/operators/decimal/parens echo to display (`*`→`×`, `/`→`÷`); `=` shows `"STUB"`; `C` clears both; `backspace` removes last char. ASCII internally, Unicode for display. Properties `expression`/`display` are read-only. | — |
 | `calc/view.py` | ✅ `CalculatorView` with full button grid (5×4, 20 buttons), right-aligned display (Segoe UI 24pt), mouse + keyboard bindings (standard + numpad), wired to controller via `press(key)` + `refresh()`. All buttons have `takefocus=False`. | — |
 | `calc/__main__.py` + `pyproject.toml` | ✅ Package wired. `python -m calc` and `calc` command both launch. Entry point `main()` in `__main__.py` wires controller+view. `pyproject.toml` uses `setuptools.build_meta`. README exists. | — |
-| Tests (6 files) | ✅ 166 tests green across `test_engine.py`, `test_controller.py`, `test_view.py`, `test_view_takefocus.py`, `test_view_wiring.py`, `test_package_wiring.py`. No test imports `tkinter` directly or creates a live display. | — |
+| Tests (6 files) | ✅ 166 tests green across `test_engine.py`, `test_controller.py`, `test_view.py`, `test_view_takefocus.py`, `test_view_wiring.py`, `test_package_wiring.py`. No test imports `tkinter` directly or creates a live display. | ✅ Engine tests are comprehensive (111 tests via `test_engine.py`): precedence, parentheses, decimals, division by zero, malformed input, whitespace, formatting, edge cases, never-raises contract, non-str input. Controller tests still reflect stub behavior (needs expansion for M2-real). |
 
-**Next: Pass 2 (REAL) — starting with M1-real (shunting-yard engine).**
+**Next: M2-real — controller state machine (digit append, operator replace, decimal guard, result continuation, error recovery, `=` delegates to real engine).**
