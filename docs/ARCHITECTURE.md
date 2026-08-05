@@ -179,3 +179,17 @@ User input (mouse click or keypress)
 2. Controller updates internal `expression` and `display`.
 3. For `=`: controller calls `engine.evaluate(expression)` → sets `display` to result or "Error".
 4. View calls `refresh()` → reads `controller.display` → updates the Tkinter Label/Entry.
+
+## Current implementation status
+
+**Pass 1 (STUBS) in progress.**
+
+| Module | Stub | Real |
+|--------|------|------|
+| `calc/engine.py` | ✅ `evaluate()` with canned results (`"1+1"` → `"2"`, `"2*3"` → `"6"`, `"1/0"` → `"Error"`, else `"STUB"`). Never raises. | — |
+| `calc/controller.py` | not started | — |
+| `calc/view.py` | not started | — |
+| `calc/__main__.py` | not started | — |
+| `pyproject.toml` | not started | — |
+| `tests/test_engine.py` | ✅ 29 tests (import, canned results, fallback, return type, never-raises). All green. | — |
+| `tests/test_controller.py` | blocked (needs `calc/controller.py`) | — |
