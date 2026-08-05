@@ -1,7 +1,73 @@
-# calc-cli-3
+# calc
 
-## Goal
+A desktop calculator app in the style of the Windows Calculator, built with
+Python and Tkinter (standard library — no extra dependencies).
 
-A desktop calculator app in Python with a graphical UI, in the style of the Windows Calculator: a result display and a grid of clickable buttons (digits 0-9, decimal point, + − × ÷, parentheses, C to clear, ⌫ backspace, =). Built with Tkinter from the Python standard library (no extra dependencies), runs on Windows. Supports both mouse clicks and keyboard input, correct operator precedence, decimals and parentheses. Division by zero or malformed input shows a friendly "Error" in the display and lets the user keep typing — never a crash or a stack trace.
-Architecture (important): put ALL arithmetic in a pure, GUI-free `engine` module, and a headless `controller` that turns button/key presses into display state. The Tkinter layer is a thin view that only wires widgets to the controller, so the logic is fully unit-testable without a display.
-Ship a `calc` entry point that opens the window (`python -m calc` or `calc`), a pytest suite covering the engine and controller (precedence, parentheses, decimals, division by zero, clear/backspace, malformed input) — no test may require a live display — and a short README with how to launch it and what the window looks like.
+## Usage
+
+Launch the calculator from the command line:
+
+```bash
+calc
+```
+
+Or equivalently:
+
+```bash
+python -m calc
+```
+
+### Keyboard shortcuts
+
+| Key | Action |
+|-----|--------|
+| 0–9, numpad 0–9 | Digits |
+| `.`, Numpad `.` | Decimal point |
+| `+`, `-`, `*`, `/` | Operators (numpad versions also work) |
+| `(`, `)` | Parentheses |
+| Enter, Numpad Enter | Equals (`=`) |
+| Backspace | Backspace (`⌫`) |
+| Escape, Delete | Clear (`C`) |
+
+## Window appearance
+
+```
+┌─────────────────────────────────────┐
+│ Calculator                    _ □ X │
+├─────────────────────────────────────┤
+│                                     │
+│                           (display) │
+│                                     │
+│  ┌───┐  ┌───┐  ┌─────┐  ┌─────┐    │
+│  │ ( │  │ ) │  │  C  │  │  ⌫  │    │
+│  └───┘  └───┘  └─────┘  └─────┘    │
+│  ┌───┐  ┌───┐  ┌───┐  ┌─────┐      │
+│  │ 7 │  │ 8 │  │ 9 │  │  ÷  │      │
+│  └───┘  └───┘  └───┘  └─────┘      │
+│  ┌───┐  ┌───┐  ┌───┐  ┌─────┐      │
+│  │ 4 │  │ 5 │  │ 6 │  │  ×  │      │
+│  └───┘  └───┘  └───┘  └─────┘      │
+│  ┌───┐  ┌───┐  ┌───┐  ┌─────┐      │
+│  │ 1 │  │ 2 │  │ 3 │  │  −  │      │
+│  └───┘  └───┘  └───┘  └─────┘      │
+│  ┌───┐  ┌───┐  ┌─────┐  ┌─────┐    │
+│  │ . │  │ 0 │  │  =  │  │  +  │    │
+│  └───┘  └───┘  └─────┘  └─────┘    │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+- **Display** — right-aligned, Segoe UI 24 pt, white background.
+- **Buttons** — Segoe UI 14 pt, light gray background (`#e0e0e0`).
+  - `C` (clear) — red (`#ff6b6b`).
+  - `=` (equals) — blue (`#4dabf7`).
+- **Window** — fixed size, title "Calculator", background `#f0f0f0`.
+
+## Running the tests
+
+```bash
+pip install -e ".[dev]"
+pytest
+```
+
+All tests are headless — no display is required.

@@ -14,5 +14,8 @@ classifiers = [
     "Topic :: Desktop Environment",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest"]
+
 [project.scripts]
 calc = "calc.__main__:main"

@@ -1,9 +1,9 @@
-"""Tkinter GUI — thin view layer (stub).
+"""Tkinter GUI — thin view layer.
 
-In the stub pass, the view creates the full button layout and wires
-mouse clicks and keyboard input to the (stub) controller.  Buttons
-echo to the display; "=" shows "STUB".  In the real pass the view
-itself barely changes — only cosmetic polish may be applied.
+Creates the calculator window with display and button grid.  Wires
+mouse clicks and keyboard events to the headless controller.  The
+view is a pure Tkinter shell — all logic lives in the controller
+and engine modules.
 """
 
 import tkinter as tk
@@ -69,7 +69,8 @@ class CalculatorView:
     """Tkinter GUI window for the calculator.
 
     Creates the window, display, and button grid.  Wires mouse clicks
-    and keyboard events to the headless controller.
+    and keyboard events to the headless controller.  Keyboard input
+    works immediately on launch — no click required.
     """
 
     def __init__(self, controller: CalculatorController) -> None:
@@ -114,6 +115,9 @@ class CalculatorView:
         # Initial refresh
         self.refresh()
 
+        # Ensure keyboard input works immediately on launch.
+        self._root.focus_set()
+
     # ------------------------------------------------------------------
     # Button creation
     # ------------------------------------------------------------------
@@ -137,7 +141,7 @@ class CalculatorView:
                 )
                 btn.grid(
                     row=row_idx, column=col_idx,
-                    sticky="nsew", padx=2, pady=2,
+                    sticky="nsew", padx=2, pady=2, ipady=4,
                 )
 
     # ------------------------------------------------------------------
