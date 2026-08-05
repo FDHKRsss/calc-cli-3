@@ -49,6 +49,10 @@ tests/
     __init__.py
     test_engine.py
     test_controller.py
+    test_view.py
+    test_view_takefocus.py
+    test_view_wiring.py
+    test_package_wiring.py
 pyproject.toml        # calc script entry point + dev deps
 ```
 
@@ -56,18 +60,23 @@ pyproject.toml        # calc script entry point + dev deps
 
 **Chosen**: Tkinter (Python stdlib). No extra dependencies.
 
-**Window**: Fixed size (~320×400), title "Calculator", non-resizable (or minimally resizable with grid weight).
+**Window**: Fixed size (non-resizable), title "Calculator", gray background (#f0f0f0).
 
 **Layout** (Windows Calculator-inspired):
 
 ```
-[              Display (Entry, read-only, right-aligned)            ]
+[              Display (Label, right-aligned, Segoe UI 24pt)            ]
 [  (  ]  [  )  ]  [  C  ]  [  ⌫  ]
 [  7  ]  [  8  ]  [  9  ]  [  ÷  ]
 [  4  ]  [  5  ]  [  6  ]  [  ×  ]
 [  1  ]  [  2  ]  [  3  ]  [  −  ]
 [  .  ]  [  0  ]  [  =  ]  [  +  ]
 ```
+
+Button colors:
+- Digits / operators / parens / decimal: light gray (#e0e0e0)
+- Clear (C): red (#ff6b6b)
+- Equals (=): blue (#4dabf7)
 
 ### 7. Keyboard mapping
 
@@ -82,8 +91,15 @@ pyproject.toml        # calc script entry point + dev deps
 | `(` | left parenthesis |
 | `)` | right parenthesis |
 | Enter / Return | equals (`=`) |
+| KP_Enter | equals (`=`) |
 | Backspace | backspace (`⌫`) |
 | Escape / Delete | clear (`C`) |
+| KP_0–KP_9 | digits |
+| KP_Decimal | `.` |
+| KP_Add | `+` |
+| KP_Subtract | `-` |
+| KP_Multiply | `*` |
+| KP_Divide | `/` |
 
 ### 8. Engine API contract
 
@@ -91,13 +107,13 @@ pyproject.toml        # calc script entry point + dev deps
 def evaluate(expression: str) -> str:
     """
     Evaluate an arithmetic expression string.
-    
+
     The expression uses ASCII operators: +, -, *, /.
     Supports parentheses and decimal numbers.
-    
+
     Returns:
         str: The result as a string (e.g. "14", "3.5", "0"), or "Error".
-    
+
     Never raises. All error conditions (division by zero, malformed
     syntax, mismatched parentheses) return the string "Error".
     """
@@ -109,11 +125,11 @@ def evaluate(expression: str) -> str:
 class CalculatorController:
     display: str          # read-only, what the view should show
     expression: str       # read-only, internal ASCII expression (for debugging)
-    
+
     def press(self, key: str) -> None:
         """
         Process a key/button press.
-        
+
         key is one of:
           "0"–"9", ".", "+", "-", "*", "/", "(", ")",
           "=", "C", "backspace"
@@ -126,10 +142,10 @@ class CalculatorController:
 class CalculatorView:
     def __init__(self, controller: CalculatorController):
         """Build the Tkinter window, wire widgets to controller."""
-    
+
     def refresh(self) -> None:
         """Read controller.display and update the display widget."""
-    
+
     def run(self) -> None:
         """Start the Tkinter main loop."""
 ```
@@ -182,14 +198,14 @@ User input (mouse click or keypress)
 
 ## Current implementation status
 
-**Pass 1 (STUBS) in progress.**
+**Pass 1 (STUBS) — COMPLETE. 166 tests green.** ✅
 
 | Module | Stub | Real |
 |--------|------|------|
 | `calc/engine.py` | ✅ `evaluate()` with canned results (`"1+1"` → `"2"`, `"2*3"` → `"6"`, `"1/0"` → `"Error"`, else `"STUB"`). Never raises. | — |
 | `calc/controller.py` | ✅ `CalculatorController` with echo-mode `press()`: digits/operators/decimal/parens echo to display (`*`→`×`, `/`→`÷`); `=` shows `"STUB"`; `C` clears both; `backspace` removes last char. ASCII internally, Unicode for display. Properties `expression`/`display` are read-only. | — |
-| `calc/view.py` | not started | — |
-| `calc/__main__.py` | not started | — |
-| `pyproject.toml` | not started | — |
-| `tests/test_engine.py` | ✅ 29 tests (import, canned results, fallback, return type, never-raises). All green. | — |
-| `tests/test_controller.py` | ✅ 41 tests (import, initial state, read-only properties, digit echo, operator Unicode mapping, expression building, equals, clear, backspace, post-equals typing, no-tkinter guard). All green. | — |
+| `calc/view.py` | ✅ `CalculatorView` with full button grid (5×4, 20 buttons), right-aligned display (Segoe UI 24pt), mouse + keyboard bindings (standard + numpad), wired to controller via `press(key)` + `refresh()`. All buttons have `takefocus=False`. | — |
+| `calc/__main__.py` + `pyproject.toml` | ✅ Package wired. `python -m calc` and `calc` command both launch. Entry point `main()` in `__main__.py` wires controller+view. `pyproject.toml` uses `setuptools.build_meta`. README exists. | — |
+| Tests (6 files) | ✅ 166 tests green across `test_engine.py`, `test_controller.py`, `test_view.py`, `test_view_takefocus.py`, `test_view_wiring.py`, `test_package_wiring.py`. No test imports `tkinter` directly or creates a live display. | — |
+
+**Next: Pass 2 (REAL) — starting with M1-real (shunting-yard engine).**

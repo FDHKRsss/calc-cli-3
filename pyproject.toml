@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "calc"
+version = "0.1.0"
+description = "A desktop calculator app in the style of the Windows Calculator"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Desktop Environment",
+]
+
+[project.scripts]
+calc = "calc.__main__:main"

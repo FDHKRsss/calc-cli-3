@@ -9,5 +9,8 @@ Ship a `calc` entry point that opens the window (`python -m calc` or `calc`), a 
 **Established (do not regress):**
 - `calc/engine.py` (M1-stub): `evaluate(expression: str) -> str` — ASCII operators only, never raises, returns `"Error"` for any problem. Currently canned results.
 - `calc/controller.py` (M2-stub): `CalculatorController` with `expression`/`display` read-only str and `press(key)`. Echo mode: keys appear in display (`*`→`×`, `/`→`÷`); `=` → `"STUB"`; `C` clears both; `backspace` removes last char. ASCII internally, Unicode for display.
-- Tests: `tests/test_engine.py` (29 tests), `tests/test_controller.py` (41 tests). No test may import `tkinter` or create a live display.
+- `calc/view.py` (M3-stub): `CalculatorView` with full button grid (5×4, 20 buttons), right-aligned display (Segoe UI 24pt), mouse + keyboard bindings (standard + numpad), wired to controller via `press(key)` + `refresh()`. All buttons have `takefocus=False`.
+- `calc/__main__.py` + `pyproject.toml` (M4-stub): Package wired. `python -m calc` and `calc` command both launch. Entry point `main()` in `__main__.py` wires controller+view. **pyproject.toml build-backend must be the documented public value `setuptools.build_meta`** — never use a private/internal path like `setuptools.backends._legacy:_Backend` (the `_` prefixes signal internal API). Tests guard this.
+- Tests (6 files): `tests/test_engine.py`, `tests/test_controller.py`, `tests/test_view.py`, `tests/test_view_takefocus.py`, `tests/test_view_wiring.py`, `tests/test_package_wiring.py`. No test may import `tkinter` directly or create a live display.
+- **Pass 1 (STUBS) complete** — 166 tests pass. Next: Pass 2 (REAL) starting with M1-real (shunting-yard engine).
 - Full API contracts are in `docs/ARCHITECTURE.md`.

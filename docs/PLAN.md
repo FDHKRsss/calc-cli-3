@@ -30,14 +30,14 @@ The `evaluate(expression: str) -> str` function. Shunting-yard algorithm: tokeni
 
 `CalculatorView` class. Creates window, display, button grid. Wires mouse clicks and keyboard to controller. `refresh()` updates display.
 
-- [ ] M3 -- stub: Full button layout and keyboard bindings, wired to (stub) controller. Display updates work.
+- [x] M3 -- stub: Full button layout and keyboard bindings, wired to (stub) controller. Display updates work.
 - [ ] M3 -- real: Polish — ensure display font/size matches Windows Calculator style, window title, focus handling so keyboard works immediately.
 
 ### M4: Package wiring — entry points, pyproject.toml, README
 
 `python -m calc` and `calc` command both launch the app. README describes how to launch and what the window looks like.
 
-- [ ] M4 -- stub: `__main__.py` imports and launches the view. `pyproject.toml` with `[project.scripts]` entry. App runs end-to-end (with stubs). README exists with launch instructions and window description.
+- [x] M4 -- stub: `__main__.py` imports and launches the view. `pyproject.toml` with `[project.scripts]` entry. App runs end-to-end (with stubs). README exists with launch instructions and window description.
 - [ ] M4 -- real: Verify both entry points work. Finalize `pyproject.toml` metadata. Polish README to match the delivered window appearance.
 
 ### M5: Test suite (`tests/`)
@@ -51,7 +51,7 @@ pytest suite covering engine and controller. No test requires a live display.
 
 ## Pass execution order
 
-**Pass 1 (STUBS)**: M1-stub → M2-stub → M3-stub → M4-stub → M5-stub. End result: app launches, window appears with full button layout, buttons echo to display, `=` shows "STUB". Tests pass trivially.
+**Pass 1 (STUBS)**: M1-stub → M2-stub → M3-stub → M4-stub → M5-stub. End result: app launches, window appears with full button layout, buttons echo to display, `=` shows "STUB". Tests pass trivially. ✅ **COMPLETE — 166 tests green.**
 
 **Pass 2 (REAL)**: M1-real → M2-real → M3-real → M4-real → M5-real. End result: fully functional calculator with correct arithmetic.
 
